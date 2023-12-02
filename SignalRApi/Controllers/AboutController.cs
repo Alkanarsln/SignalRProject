@@ -15,7 +15,7 @@ namespace SignalRApi.Controllers
 
         public AboutController(IAboutService aboutService)
         {
-            _aboutService = aboutService;
+            _aboutService = aboutService; 
         }
 
         [HttpGet]
