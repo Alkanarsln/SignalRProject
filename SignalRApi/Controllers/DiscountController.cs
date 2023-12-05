@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SignalR.BusinessLayer.Abstract;
 using SignalR.DtoLayer.DiscountDto;
@@ -11,15 +12,17 @@ namespace SignalRApi.Controllers
     public class DiscountController : ControllerBase
     {
         private readonly IDiscountService _discountService;
-        public DiscountController(IDiscountService discountService)
+        private readonly IMapper _mapper;
+        public DiscountController(IDiscountService discountService, IMapper mapper)
         {
             _discountService = discountService;
+            _mapper = mapper;
         }
 
         [HttpGet]
         public IActionResult DiscountList()
         {
-            return Ok(_discountService.TGetListAll());
+            return Ok(_mapper.Map<List<ResultDiscountDto>>(_discountService.TGetListAll()));
         }
         [HttpPost]
         public IActionResult CreateDiscount(CreateDiscountDto createDiscountDto)
