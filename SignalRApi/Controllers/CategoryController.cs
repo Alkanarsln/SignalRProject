@@ -35,14 +35,19 @@ namespace SignalRApi.Controllers
             _categoryService.TAdd(category);
             return Ok("Kategori Başarılı Bir Şekilde Eklendi");
         }
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public IActionResult DeleteCategory(int id)
         {
             var value = _categoryService.TGetById(id);
             _categoryService.TDelete(value);
             return Ok("Kategori Silindi");
         }
-        [HttpPut]
+		[HttpGet("{id}")]
+		public IActionResult GetCategory(int id)
+		{
+			return Ok(_categoryService.TGetById(id));
+		}
+		[HttpPut]
         public IActionResult UpdateCategory(UpdateCategoryDto updateCategoryDto)
         {
             Category category = new Category()
@@ -54,10 +59,6 @@ namespace SignalRApi.Controllers
             _categoryService.TUpdate(category);
             return Ok("Kategori Güncellendi");
         }
-        [HttpGet("GetCategory")]
-        public IActionResult GetCategory(int id)
-        {
-            return Ok(_categoryService.TGetById(id));
-        }
+       
     }
 }
