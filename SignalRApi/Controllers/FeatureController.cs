@@ -42,7 +42,7 @@ namespace SignalRApi.Controllers
             _featureService.TAdd(feature);
             return Ok("Ekleme Başarılı");
         }
-        [HttpDelete]
+        [HttpDelete("{id}")]
 
         public IActionResult DeleteFeature(int id)
         {
@@ -50,7 +50,13 @@ namespace SignalRApi.Controllers
             _featureService.TDelete(value);
             return Ok("silme başarılı");
         }
-        [HttpPut]
+		[HttpGet("{id}")]
+		public IActionResult GetFeature(int id)
+		{
+
+			return Ok(_featureService.TGetById(id));
+		}
+		[HttpPut]
         public IActionResult UpdateFeature(UpdateFeatureDto updateFeatureDto)
         {
 
@@ -69,12 +75,5 @@ namespace SignalRApi.Controllers
             _featureService.TUpdate(feature);
             return Ok("Güncelleme Başarılı");
         }
-        [HttpGet("GetFeature")]
-        public IActionResult GetFeature(int id)
-        {
-
-            return Ok(_featureService.TGetById(id));
-        }
-
     }
 }
