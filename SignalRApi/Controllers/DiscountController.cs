@@ -30,7 +30,7 @@ namespace SignalRApi.Controllers
             Discount discount = new Discount()
             {
                 Amount = createDiscountDto.Amount,
-                description = createDiscountDto.description,
+                Description = createDiscountDto.Description,
                 ImageUrl = createDiscountDto.ImageUrl,
                 Title = createDiscountDto.Title,
 
@@ -59,7 +59,7 @@ namespace SignalRApi.Controllers
             {
                 DiscountID = updateDiscountDto.DiscountID,
                 Amount = updateDiscountDto.Amount,
-                description = updateDiscountDto.description,
+                Description = updateDiscountDto.Description,
                 ImageUrl = updateDiscountDto.ImageUrl,
                 Title = updateDiscountDto.Title,
 

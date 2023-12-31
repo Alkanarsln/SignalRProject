@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Schema;
 
 namespace SignalR.DataAccessLayer.EntityFramework
 {
@@ -26,6 +27,11 @@ namespace SignalR.DataAccessLayer.EntityFramework
         {
             using var context = new SignalRContext();
             return context.Orders.OrderByDescending(x => x.OrderID).Take(1).Select(y => y.TotalPrice).FirstOrDefault();
+        }
+
+        public decimal TodayTotalPrice()
+        {
+            return 0;
         }
 
         public int TotalOrderCount()
