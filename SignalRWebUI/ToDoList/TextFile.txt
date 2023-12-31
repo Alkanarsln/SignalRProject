@@ -17,3 +17,7 @@ __ En Düşük Ürünlü fiyat
 --Kasadaki Tutar
 --Bugünkü Kazanç
 --Masa Sayısı
+
+--------------------------------------------------
+
+İstatistiklerin Consume Edilmesi
