@@ -22,7 +22,7 @@ namespace SignalRWebUI.Controllers
 			if (responseMessage.IsSuccessStatusCode)
 			{
 				var jsonData = await responseMessage.Content.ReadAsStringAsync();
-				var values = JsonConvert.DeserializeObject<List<ResultBookingDtos>>(jsonData);
+				var values = JsonConvert.DeserializeObject<List<ResultBookingDto>>(jsonData);
 				return View(values);
 			}
 			return View();
@@ -33,7 +33,7 @@ namespace SignalRWebUI.Controllers
 			return View();
 		}
 		[HttpPost]
-		public async Task<IActionResult> CreateBooking (CreateBookingDtos createBookingDtos)
+		public async Task<IActionResult> CreateBooking (CreateBookingDto createBookingDtos)
 		{
 			var client = _httpClientFactory.CreateClient();
 			var jsonData = JsonConvert.SerializeObject(createBookingDtos);
@@ -63,13 +63,13 @@ namespace SignalRWebUI.Controllers
 			if (responseMessage.IsSuccessStatusCode)
 			{
 				var jsonData = await responseMessage.Content.ReadAsStringAsync();
-				var values = JsonConvert.DeserializeObject<UpdateBookingDtos>(jsonData);
+				var values = JsonConvert.DeserializeObject<UpdateBookingDto>(jsonData);
 				return View(values);
 			}
 			return View();
 		}
 		[HttpPost]
-		public async Task<IActionResult> UpdateBooking(UpdateBookingDtos updateBookingDtos)
+		public async Task<IActionResult> UpdateBooking(UpdateBookingDto updateBookingDtos)
 		{
 			var client = _httpClientFactory.CreateClient();
 			var jsonData = JsonConvert.SerializeObject(updateBookingDtos);

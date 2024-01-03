@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SignalR.DataAccessLayer.Concrete;
 
@@ -11,9 +12,10 @@ using SignalR.DataAccessLayer.Concrete;
 namespace SignalR.DataAccessLayer.Migrations
 {
     [DbContext(typeof(SignalRContext))]
-    partial class SignalRContextModelSnapshot : ModelSnapshot
+    [Migration("20240102140032_mig_add_contact_new_columns")]
+    partial class mig_add_contact_new_columns
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -45,38 +47,6 @@ namespace SignalR.DataAccessLayer.Migrations
                     b.HasKey("AboutID");
 
                     b.ToTable("Abouts");
-                });
-
-            modelBuilder.Entity("SignalR.EntityLayer.Entities.Basket", b =>
-                {
-                    b.Property<int>("BasketID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BasketID"), 1L, 1);
-
-                    b.Property<int>("Count")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MenuTableID")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("ProductID")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("TotalPrice")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("BasketID");
-
-                    b.HasIndex("MenuTableID");
-
-                    b.HasIndex("ProductID");
-
-                    b.ToTable("Baskets");
                 });
 
             modelBuilder.Entity("SignalR.EntityLayer.Entities.Contact", b =>
@@ -466,25 +436,6 @@ namespace SignalR.DataAccessLayer.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("SignalR.EntityLayer.Entities.Basket", b =>
-                {
-                    b.HasOne("SignalR.EntityLayer.Entities.MenuTable", "MenuTable")
-                        .WithMany("Baskets")
-                        .HasForeignKey("MenuTableID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SignalRApi.EntityLayer.Entities.Product", "Product")
-                        .WithMany("Baskets")
-                        .HasForeignKey("ProductID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("MenuTable");
-
-                    b.Navigation("Product");
-                });
-
             modelBuilder.Entity("SignalR.EntityLayer.Entities.OrderDetail", b =>
                 {
                     b.HasOne("SignalR.EntityLayer.Entities.Order", "Order")
@@ -515,11 +466,6 @@ namespace SignalR.DataAccessLayer.Migrations
                     b.Navigation("Category");
                 });
 
-            modelBuilder.Entity("SignalR.EntityLayer.Entities.MenuTable", b =>
-                {
-                    b.Navigation("Baskets");
-                });
-
             modelBuilder.Entity("SignalR.EntityLayer.Entities.Order", b =>
                 {
                     b.Navigation("OrderDetails");
@@ -532,8 +478,6 @@ namespace SignalR.DataAccessLayer.Migrations
 
             modelBuilder.Entity("SignalRApi.EntityLayer.Entities.Product", b =>
                 {
-                    b.Navigation("Baskets");
-
                     b.Navigation("OrderDetails");
                 });
 #pragma warning restore 612, 618
