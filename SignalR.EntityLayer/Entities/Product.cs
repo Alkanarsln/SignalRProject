@@ -13,6 +13,7 @@ namespace SignalRApi.EntityLayer.Entities
         public int CategoryID { get; set; }
         public Category Category { get; set; }
         public List<OrderDetail> OrderDetails { get; set; }
+        public List<Basket> Baskets { get; set; }
     }
 }
 

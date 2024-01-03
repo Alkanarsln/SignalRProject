@@ -1,6 +1,6 @@
 ﻿namespace SignalRWebUI.Dtos.BookingDtos
 {
-	public class UpdateBookingDtos
+	public class UpdateBookingDto
 	{
 		public int BookingID { get; set; }
 		public string Name { get; set; }
