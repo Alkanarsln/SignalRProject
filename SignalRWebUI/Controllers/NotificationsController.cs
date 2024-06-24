@@ -1,15 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using SignalRWebUI.Dtos.AboutDtos;
+using SignalRWebUI.Dtos.NotificationDtos;
 using System.Text;
 
 namespace SignalRWebUI.Controllers
 {
-    public class AboutController : Controller
+    public class NotificationsController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;
 
-        public AboutController(IHttpClientFactory httpClientFactory)
+        public NotificationsController(IHttpClientFactory httpClientFactory)
         {
             _httpClientFactory = httpClientFactory;
         }
@@ -17,37 +17,38 @@ namespace SignalRWebUI.Controllers
         public async Task<IActionResult> Index()
         {
             var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.GetAsync("https://localhost:44394/api/About");
+            var responseMessage = await client.GetAsync("https://localhost:44394/api/Notification");
             if (responseMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<List<ResultAboutDto>>(jsonData);
+                var values = JsonConvert.DeserializeObject<List<ResultNotificationDto>>(jsonData);
                 return View(values);
             }
             return View();
         }
         [HttpGet]
-        public IActionResult CreateAbout()
+        public IActionResult CreateNotification()
         {
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> CreateAbout(CreateAboutDto createAboutDto)
+
+        public async Task<IActionResult> CreateNotification(CreateNotificationDto createNotificationDto)
         {
             var client = _httpClientFactory.CreateClient();
-            var jsonData = JsonConvert.SerializeObject(createAboutDto);
+            var jsonData = JsonConvert.SerializeObject(createNotificationDto);
             StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
-            var responseMessage = await client.PostAsync("https://localhost:44394/api/About", stringContent);
+            var responseMessage = await client.PostAsync("https://localhost:44394/api/Notification", stringContent);
             if (responseMessage.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index");
             }
             return View();
         }
-        public async Task<IActionResult> DeleteAbout(int id)
+        public async Task<IActionResult> DeleteNotification(int id)
         {
             var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.DeleteAsync($"https://localhost:44394/api/About/{id}");
+            var responseMessage = await client.DeleteAsync($"https://localhost:44394/api/Notification");
             if (responseMessage.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index");
@@ -55,25 +56,25 @@ namespace SignalRWebUI.Controllers
             return View();
         }
         [HttpGet]
-        public async Task<IActionResult> UpdateAbout(int id)
+        public async Task<IActionResult> UpdateNotification(int id)
         {
             var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.GetAsync($"https://localhost:44394/api/About/{id}");
+            var responseMessage = await client.GetAsync($"https://localhost:44394/api/Notification/{id}");
             if (responseMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<UpdateAboutDto>(jsonData);
+                var values = JsonConvert.DeserializeObject<UpdateNotificationDto>(jsonData);
                 return View(values);
             }
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> UpdateAbout(UpdateAboutDto updateAboutDto)
+        public async Task<IActionResult> UpdateNotification(UpdateNotificationDto updateNotificationDto)
         {
             var client = _httpClientFactory.CreateClient();
-            var jsonData = JsonConvert.SerializeObject(updateAboutDto);
+            var jsonData = JsonConvert.SerializeObject(updateNotificationDto);
             StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
-            var responseMessage = await client.PutAsync("https://localhost:44394/api/About/", stringContent);
+            var responseMessage = await client.PutAsync("https://localhost:44394/api/Notification/", stringContent);
             if (responseMessage.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index");
