@@ -48,7 +48,7 @@ namespace SignalRWebUI.Controllers
         public async Task<IActionResult> DeleteNotification(int id)
         {
             var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.DeleteAsync($"https://localhost:44394/api/Notification");
+            var responseMessage = await client.DeleteAsync($"https://localhost:44394/api/Notification/{id}");
             if (responseMessage.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index");
@@ -81,5 +81,21 @@ namespace SignalRWebUI.Controllers
             }
             return View();
         }
+
+        public async Task<IActionResult> NotificationChangeToTrue(int id)
+        {
+            var client = _httpClientFactory.CreateClient();
+            await client.GetAsync($"https://localhost:44394/api/Notification/NotificationChangeToTrue/{id}");
+      
+            return RedirectToAction("Index");
+        }
+        public async Task<IActionResult> NotificationChangeToFalse(int id)
+        {
+            var client = _httpClientFactory.CreateClient();
+            await client.GetAsync($"https://localhost:44394/api/Notification/NotificationChangeToFalse/{id}");
+
+            return RedirectToAction("Index");
+        }
+
     }
 }

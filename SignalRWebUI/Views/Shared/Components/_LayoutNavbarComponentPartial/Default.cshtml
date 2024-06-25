@@ -8,13 +8,13 @@
 
 		$(document).ready(() => {
 
-			var connection = new signalR.HubConnectionBuilder().withUrl("https://localhost:7213/SignalRHub").build();
+			var connection = new signalR.HubConnectionBuilder().withUrl("https://localhost:44394/SignalRHub").build();
 			$("#connstatus").text(connection.state);
 			connection.start().then(() => {
 				$("#connstatus").text(connection.state);
 				setInterval(() => {
 					connection.invoke("SendNatification");
-				}, 5000);
+				}, 1000);
 
 			}).catch((err) => { console.log(err) });
 
