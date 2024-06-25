@@ -22,10 +22,26 @@ namespace SignalR.DataAccessLayer.EntityFramework
             return context.Notifications.Where(x => x.Status == false).ToList();
         }
 
+        public void NotificationChangeToFalse(int id)
+        {
+            using var context = new SignalRContext();
+            var values = context.Notifications.Find(id);
+            values.Status = false;
+            context.SaveChanges();
+        }
+
+        public void NotificationChangeToTrue(int id)
+        {
+            using var context = new SignalRContext();
+            var values = context.Notifications.Find(id);
+            values.Status = true;
+            context.SaveChanges();
+        }
+
         public int NotificationCountByStatusFalse()
         {
             using var context = new SignalRContext();
-            return context.Notifications.Where(x=>x.Status == false).Count();
+            return context.Notifications.Where(x => x.Status == false).Count();
         }
     }
 }
